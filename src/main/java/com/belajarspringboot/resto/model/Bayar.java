@@ -20,6 +20,10 @@ public class Bayar extends Audit {
     @Column(name = "disc", columnDefinition = "int")
     private int disc;
 
+    @ManyToOne
+    @JoinColumn(name = "no_user")
+    private User user;
+
     public Bayar() {
     }
 
@@ -53,5 +57,13 @@ public class Bayar extends Audit {
 
     public void setDisc(int disc) {
         this.disc = disc;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

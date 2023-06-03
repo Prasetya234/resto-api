@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface PesananService {
-    Pesanan tambah(Pesanan pesanan);
+
+
+    Pesanan tambah(int userId, Pesanan pesanan);
 
     Pesanan cari(int no);
 

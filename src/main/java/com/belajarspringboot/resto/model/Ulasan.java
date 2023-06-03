@@ -14,6 +14,15 @@ public class Ulasan extends Audit {
     @Column(name = "ulasan", columnDefinition = "text")
     private String ulasan;
 
+    @ManyToOne
+    @JoinColumn(name = "no_user")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "no_product")
+    private Product product;
+
+
+
     public Ulasan() {
     }
 
@@ -31,5 +40,19 @@ public class Ulasan extends Audit {
 
     public void setUlasan(String ulasan) {
         this.ulasan = ulasan;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

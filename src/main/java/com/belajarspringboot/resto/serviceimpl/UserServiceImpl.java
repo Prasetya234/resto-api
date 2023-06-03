@@ -1,8 +1,11 @@
 package com.belajarspringboot.resto.serviceimpl;
 
 import com.belajarspringboot.resto.model.User;
+import com.belajarspringboot.resto.model.Wallet;
 import com.belajarspringboot.resto.respository.UserRespository;
+import com.belajarspringboot.resto.respository.WalletRespository;
 import com.belajarspringboot.resto.service.UserService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +17,16 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRespository userRespository;
+    @Autowired
+    private WalletRespository walletRespository;
     @Override
     public User tambah(User user) {
-        return userRespository.save(user);
+        User user1 = userRespository.save(user);
+        Wallet wallet = new Wallet();
+        wallet.setSaldo(0);
+        wallet.setUser(user1);
+        walletRespository.save(wallet);
+        return user1;
     }
 
     @Override

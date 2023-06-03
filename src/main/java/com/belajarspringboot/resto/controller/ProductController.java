@@ -1,5 +1,6 @@
 package com.belajarspringboot.resto.controller;
 
+import com.belajarspringboot.resto.dto.ProductResponseDTO;
 import com.belajarspringboot.resto.dto.Productdto;
 import com.belajarspringboot.resto.model.Product;
 
@@ -25,7 +26,8 @@ public class ProductController {
 
     @PostMapping
     public CommonResponse<Product> tambah(@RequestBody Productdto productdto){
-        return CommonResponseGenerator.sukses(productService.tambah(modelMapper.map(productdto, Product.class)));
+        Product data = productService.tambah(modelMapper.map(productdto, Product.class));
+        return CommonResponseGenerator.sukses(data);
     }
     @GetMapping("/{no}")
     public CommonResponse<Productdto> cari(@PathVariable("no") int no){
@@ -40,9 +42,9 @@ public class ProductController {
         return CommonResponseGenerator.sukses(hasil);
     }
     @GetMapping("")
-    public CommonResponse<List<Productdto>> tampil(@RequestParam(name = "nama", required = false, defaultValue = "") String name){
+    public CommonResponse<List<ProductResponseDTO>> tampil(@RequestParam(name = "nama", required = false, defaultValue = "") String name){
 
-        List<Productdto> data = productService.tampil(name).stream().map(v -> modelMapper.map(v, Productdto.class)).collect(Collectors.toList());
+        List<ProductResponseDTO> data = productService.tampil(name).stream().map(v -> modelMapper.map(v, ProductResponseDTO.class)).collect(Collectors.toList());
         return CommonResponseGenerator.sukses(data);
     }
 

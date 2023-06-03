@@ -11,10 +11,14 @@ public class Wallet extends Audit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
 
-    @Column(name = "username", columnDefinition = "varchar(20)")
-    private String username;
+    //@Column(name = "username", columnDefinition = "varchar(20)")
+    //private String username;
     @Column(name = "saldo", columnDefinition = "int")
     private int saldo;
+
+    @ManyToOne
+    @JoinColumn(name = "no_user")
+    private User user;
 
     public Wallet() {
     }
@@ -27,12 +31,12 @@ public class Wallet extends Audit {
         this.no = no;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getSaldo() {

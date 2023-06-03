@@ -17,26 +17,26 @@ public class Audit {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
     @Column(name = "dibuat")
-    private Date Dibuat;
+    private Date dibuat;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @UpdateTimestamp
     @Column(name = "diupdate")
-    private Date Diupdate;
+    private Date diupdate;
 
     public Date getDibuat() {
-        return Dibuat;
+        return dibuat;
     }
 
     public void setDibuat(Date dibuat) {
-        Dibuat = dibuat;
+        this.dibuat = dibuat;
     }
 
     public Date getDiupdate() {
-        return Diupdate;
+        return diupdate;
     }
 
     public void setDiupdate(Date diupdate) {
-        Diupdate = diupdate;
+        this.diupdate = diupdate;
     }
 }

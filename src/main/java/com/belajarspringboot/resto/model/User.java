@@ -1,6 +1,7 @@
 package com.belajarspringboot.resto.model;
 
 import com.belajarspringboot.resto.audit.Audit;
+import com.belajarspringboot.resto.enumated.EnumRole;
 
 import javax.persistence.*;
 
@@ -23,7 +24,9 @@ public class User extends Audit {
 
     @Column(name = "telp", columnDefinition = "varchar(13)")
     private String telp;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name ="role")
+    private EnumRole role;
 
     public User() {
     }
@@ -66,5 +69,13 @@ public class User extends Audit {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public EnumRole getRole() {
+        return role;
+    }
+
+    public void setRole(EnumRole role) {
+        this.role = role;
     }
 }

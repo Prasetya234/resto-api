@@ -3,6 +3,8 @@ package com.belajarspringboot.resto.model;
 import com.belajarspringboot.resto.audit.Audit;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -24,7 +26,17 @@ public class Product extends Audit {
     @Column(name = "tersedia", columnDefinition = "tinyint(1)")
     private Boolean tersedia;
 
-    public Product(){
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns= {@JoinColumn(name = "tag_id")}
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "no_toko")
+    private Toko toko;
+    public Product() {
 
     }
 
@@ -74,5 +86,34 @@ public class Product extends Audit {
 
     public void setTersedia(Boolean tersedia) {
         this.tersedia = tersedia;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTags(Tag tag){
+        this.tags.add(tag);
+        tag.getProducts().add(this);
+    }
+
+    public void removeTag(int tagId){
+        Tag tag = this.tags.stream().filter(t -> t.getId() == tagId).findFirst().orElse(null);
+        if (tag != null){
+            this.tags.remove(tag);
+            tag.getProducts().remove(this);
+        }
+    }
+
+    public Toko getToko() {
+        return toko;
+    }
+
+    public void setToko(Toko toko) {
+        this.toko = toko;
     }
 }

@@ -2,7 +2,9 @@ package com.belajarspringboot.resto.serviceimpl;
 
 import com.belajarspringboot.resto.exception.NotFoundException;
 import com.belajarspringboot.resto.model.Pesanan;
+import com.belajarspringboot.resto.model.User;
 import com.belajarspringboot.resto.respository.PesananRespository;
+import com.belajarspringboot.resto.respository.UserRespository;
 import com.belajarspringboot.resto.service.PesananService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,13 @@ import java.util.Map;
 public class PesananServiceImpl implements PesananService {
     @Autowired
     private PesananRespository pesananRespository;
-
+    @Autowired
+    private UserRespository userRespository;
     @Override
-    public Pesanan tambah(Pesanan pesanan){return pesananRespository.save(pesanan);}
+    public Pesanan tambah(int userId, Pesanan pesanan){
+        User user = userRespository.findById(userId).get();
+        pesanan.setUser(user);
+        return  pesananRespository.save(pesanan);}
 
     @Override
     public Pesanan cari(int no){

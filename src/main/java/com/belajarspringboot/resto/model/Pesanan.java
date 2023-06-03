@@ -1,9 +1,12 @@
 package com.belajarspringboot.resto.model;
 
 import com.belajarspringboot.resto.audit.Audit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="pesanan")
@@ -25,12 +28,25 @@ public class Pesanan extends Audit {
 
     @Column(name = "waiter", columnDefinition = "varchar(20)")
     private String waiter;
+    @Column(name="is_apply")
+    private boolean isApply;
 
-    @Column(name = "user", columnDefinition = "varchar(10)")
-    private String user;
 
-    //@Column(name = "dibuat", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-   // private Timestamp dibuat;
+    @ManyToOne
+    @JoinColumn(name = "no_user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "no_toko")
+    private Toko toko;
+
+    @ManyToOne
+    @JoinColumn(name = "no_cart")
+    private Cart cart;
+
+
+
+
 
 
     public Pesanan() {
@@ -76,12 +92,37 @@ public class Pesanan extends Audit {
         this.waiter = waiter;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isApply() {
+        return isApply;
+    }
+
+    public void setApply(boolean apply) {
+        isApply = apply;
+    }
+
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Toko getToko() {
+        return toko;
+    }
+
+    public void setToko(Toko toko) {
+        this.toko = toko;
     }
 
 

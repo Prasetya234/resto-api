@@ -41,7 +41,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet update(int no, Wallet wallet) {
         Wallet update = walletRespository.findById(no).get();
-        update.setUsername(wallet.getUsername());
+
         update.setSaldo(wallet.getSaldo());
         return walletRespository.save(update);
     }
