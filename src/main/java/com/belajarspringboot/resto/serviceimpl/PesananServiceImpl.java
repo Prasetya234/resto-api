@@ -47,6 +47,7 @@ public class PesananServiceImpl implements PesananService {
         pesanan.setUser(finduser);
         pesanan.setCart(findcart);
         pesanan.setToko(findtoko);
+        pesanan.setPaid(false);
         return pesananRespository.save(pesanan);
     }
 

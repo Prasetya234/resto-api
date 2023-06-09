@@ -32,6 +32,8 @@ public class Pesanan extends Audit {
     @Column(name="is_apply")
     private boolean isApply;
 
+    @Column(name = "is_paid")
+    private  boolean isPaid = false;
 
     @ManyToOne
     @JoinColumn(name = "no_user")
@@ -113,5 +115,11 @@ public class Pesanan extends Audit {
         this.toko = toko;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
 
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
 }
