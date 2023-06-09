@@ -1,10 +1,12 @@
 package com.belajarspringboot.resto.controller;
 
 import com.belajarspringboot.resto.dto.Pesanandto;
+import com.belajarspringboot.resto.enumated.EnumStatusPesanan;
 import com.belajarspringboot.resto.model.Pesanan;
 import com.belajarspringboot.resto.response.CommonResponse;
 import com.belajarspringboot.resto.response.CommonResponseGenerator;
 import com.belajarspringboot.resto.service.PesananService;
+import com.belajarspringboot.resto.serviceimpl.PesananServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +18,15 @@ import java.util.Map;
 @RequestMapping("/pesanan")
 public class PesananController {
     @Autowired
-    private PesananService pesananService;
+    private PesananServiceImpl pesananService;
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping("/{userId}")
-    public CommonResponse<Pesanan> tambah(@PathVariable("userId") int userId, @RequestBody Pesanandto pesanandto){
-        return CommonResponseGenerator.sukses(pesananService.tambah(userId,modelMapper.map(pesanandto, Pesanan.class)));
+    @PostMapping("")
+    public CommonResponse<Pesanan> tambah(@RequestBody Pesanandto pesanandto){
+        return CommonResponseGenerator.sukses(pesananService.tambah(pesanandto));
     }
+
     @GetMapping("/{no}")
     public CommonResponse<Pesanandto> cari(@PathVariable("no") int no){
         Pesanan pesanan = pesananService.cari(no);
@@ -32,15 +35,16 @@ public class PesananController {
     }
 
     @GetMapping("/param")
-    public CommonResponse<?> param(@RequestParam(name = "id", required = false) Integer id, @RequestParam(name = "user", required = false) String user ){
-        String[] hasil = {String.valueOf(id), user};
-        return CommonResponseGenerator.sukses(hasil);
+    public CommonResponse<?> param(@RequestParam(name = "status_pesanan", required = false) EnumStatusPesanan status){
+
+        return CommonResponseGenerator.sukses(pesananService.findAllByPesanan(status));
     }
-    @GetMapping("")
-    public CommonResponse<List<Pesanan>> tampil(){
-        return CommonResponseGenerator.sukses(pesananService.tampil());
+    @GetMapping("/{userid}")
+    public CommonResponse<List<Pesanan>> tampil(@PathVariable("userid") int userid){
+        return CommonResponseGenerator.sukses(pesananService.findAllByUserId(userid));
     }
-   
+
+
 
     @DeleteMapping("/{no}")
     private CommonResponse<Map<String, Boolean>> hapus(@PathVariable("no") int no){
@@ -51,4 +55,11 @@ public class PesananController {
     public CommonResponse<Pesanan> update(@PathVariable("no") int no, @RequestBody Pesanan pesanan){
         return CommonResponseGenerator.sukses(pesananService.update(no, pesanan));
     }
+
+    @PutMapping("/confirm/{pesananid}")
+    public CommonResponse<Pesanan> pesananId(@PathVariable("pesananid") int pesananId){
+        return CommonResponseGenerator.sukses(pesananService.update_status(pesananId));
+    }
+
+
 }

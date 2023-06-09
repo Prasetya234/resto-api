@@ -27,7 +27,8 @@ public class Cart {
             inverseJoinColumns= {@JoinColumn(name = "noCartItem")}
     )
     private Set<CartItem> cartItems = new HashSet<>();
-
+    @Column(name="status")
+    private boolean status=false;
 
     @ManyToOne
     @JoinColumn(name = "no_user")
@@ -73,5 +74,18 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void addCartItem(CartItem cartItem){
+        this.cartItems.add(cartItem);
+        cartItem.getCart().add(this);
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

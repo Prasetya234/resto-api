@@ -1,6 +1,8 @@
 package com.belajarspringboot.resto.model;
 
 import com.belajarspringboot.resto.audit.Audit;
+import com.belajarspringboot.resto.enumated.EnumRole;
+import com.belajarspringboot.resto.enumated.EnumStatusPesanan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,20 +16,19 @@ public class Pesanan extends Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
-    @Column(name = "nota", columnDefinition = "varchar(10)")
-    private String nota;
 
 
 
-    @Column(name = "tgl", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp tgl;
+
+
 
 
     @Column(name = "no_meja", columnDefinition = "int")
     private int no_meja;
 
-    @Column(name = "waiter", columnDefinition = "varchar(20)")
-    private String waiter;
+    @Enumerated(EnumType.STRING)
+    @Column(name ="status_pesanan")
+    private EnumStatusPesanan statusPesanan ;
     @Column(name="is_apply")
     private boolean isApply;
 
@@ -60,21 +61,8 @@ public class Pesanan extends Audit {
         this.no = no;
     }
 
-    public String getNota() {
-        return nota;
-    }
 
-    public void setNota(String nota) {
-        this.nota = nota;
-    }
 
-    public Timestamp getTgl() {
-        return tgl;
-    }
-
-    public void setTgl(Timestamp tgl) {
-        this.tgl = tgl;
-    }
 
     public int getNo_meja() {
         return no_meja;
@@ -84,12 +72,12 @@ public class Pesanan extends Audit {
         this.no_meja = no_meja;
     }
 
-    public String getWaiter() {
-        return waiter;
+    public EnumStatusPesanan getStatusPesanan() {
+        return statusPesanan;
     }
 
-    public void setWaiter(String waiter) {
-        this.waiter = waiter;
+    public void setStatusPesanan(EnumStatusPesanan statusPesanan) {
+        this.statusPesanan = statusPesanan;
     }
 
     public User getUser() {
