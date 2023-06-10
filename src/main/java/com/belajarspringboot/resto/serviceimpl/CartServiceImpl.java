@@ -59,7 +59,12 @@ public class CartServiceImpl implements CartService {
         return cartRespository.save(dataCart);
 
     }
-
+    @Override
+    public Cart removeCartItem(int noCart, int noCartItem) {
+        Cart cart = cartRespository.findById(noCart).orElseThrow(() -> new NotFoundException("Cart ga di temukan"));
+        cart.removeCartItem(noCartItem);
+        return cartRespository.save(cart);
+    }
     @Override
     public List<Cart> findAllByUserId(int userNo){
         User user = userRespository.findById(userNo).orElseThrow(() -> new NotFoundException("User id tidak ditemukan"));

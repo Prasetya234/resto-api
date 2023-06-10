@@ -25,4 +25,9 @@ public class CartController {
     public CommonResponse<List<Cart>> findAll(@PathVariable("no_user") int no_user){
         return CommonResponseGenerator.sukses(cartService.findAllByUserId(no_user));
     }
+
+    @DeleteMapping("/{cartId}/cart-item/{cartItemsId}")
+    public CommonResponse<Cart> deleteCartItem(@PathVariable("cartId") int cartId, @PathVariable("cartItemsId") int cartItemsId) {
+        return CommonResponseGenerator.sukses(cartService.removeCartItem(cartId, cartItemsId));
+    }
 }

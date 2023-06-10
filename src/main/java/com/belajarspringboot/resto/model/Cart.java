@@ -81,6 +81,14 @@ public class Cart {
         cartItem.getCart().add(this);
     }
 
+    public void removeCartItem(int noCartItem) {
+        CartItem cartItem = this.cartItems.stream().filter(item -> item.getNo() == noCartItem).findFirst().orElse(null);
+        if (cartItem != null) {
+            this.cartItems.remove(cartItem);
+            cartItem.getCart().remove(this);
+        }
+    }
+
     public boolean isStatus() {
         return status;
     }
