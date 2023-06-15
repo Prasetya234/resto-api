@@ -4,5 +4,4 @@ public enum EnumRole {
     ADMIN,
     CUSTOMER,
     CHEF
-
 }

@@ -8,20 +8,15 @@ import javax.persistence.*;
 @Entity
 @Table(name="user")
 public class User extends Audit {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
-
     @Column(name = "nama", columnDefinition = "varchar(20)")
     private String nama;
-
     @Column(name = "email", columnDefinition = "varchar(50)")
     private String email;
-
-    @Column(name = "password", columnDefinition = "varchar(10)")
+    @Column(name = "password")
     private String password;
-
     @Column(name = "telp", columnDefinition = "varchar(13)")
     private String telp;
     @Enumerated(EnumType.STRING)
